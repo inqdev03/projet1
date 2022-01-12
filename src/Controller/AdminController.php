@@ -22,6 +22,7 @@ class AdminController extends AbstractController
     }
 
 
+    
     #[Route('/categories/ajout', name: 'categories_ajout')]
     public function ajoutCategorie(Request $request): Response
     {
