@@ -18,7 +18,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'integer',nullable: true)]
     private $id;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
@@ -37,6 +37,12 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'users', targetEntity: Annances::class, orphanRemoval: true)]
     private $annances;
+
+    #[ORM\Column(type: 'string', length: 100)]
+    private $name;
+
+    #[ORM\Column(type: 'string', length: 100)]
+    private $firstname;
 
     public function __construct()
     {
@@ -170,6 +176,30 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
                 $annance->setUsers(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(string $firstname): self
+    {
+        $this->firstname = $firstname;
 
         return $this;
     }

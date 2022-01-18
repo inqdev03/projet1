@@ -1,0 +1,18 @@
+
+{% for annance in annances %}
+    <tr>
+        <td>{{ annance.id }}</td>
+        <td>{{ annance.title }}</td>
+        <td>{{ annance.createdAT|date }}</td>
+        <td>
+            <label class="form-switch mt-2">
+                <input type="checkbox" {{ (annance.active) ? 'checked' : ''}} data-id="{{ annance.id}}" />
+                <span class="slider"></span>
+            </label>
+        </td>
+        <td class="text-center">
+            <a href="{{ path('admin_annances_supprimer', {id: annance.id}) }}" class="btn rounded-1 primary press btndelete">Supprimer</a>
+        </td>
+    </tr>
+
+{% endfor %}

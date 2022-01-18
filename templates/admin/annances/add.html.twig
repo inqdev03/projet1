@@ -1,0 +1,17 @@
+<form action="" method="post">
+    <p>titre : <input type="text" name="title" /></p>
+    <p>description : <input type="text" name="content" /></p>
+    <button id="btnsubmit"> valider</button>
+</form>
+<script>
+    $('#btnsubmit').click(function(event) {
+        //event.preventDefault();
+        let dataToSend = {
+            titre: $("input[name=title]").val(),
+            description: $("input[name=content]").val()
+        };
+        $.post({{ path('admin_annances_add_ajax') }}, dataToSend, function( data ) {
+            alert("data" +data);
+        });
+    });
+</script>
