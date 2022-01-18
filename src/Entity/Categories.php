@@ -19,9 +19,9 @@ class Categories
     #[ORM\Column(type: 'string', length: 100)]
     private $name;
 
-//    #[Gedmo\Slug(fields: ('name'))]
-//    #[ORM\Column(type: 'string', length: 255)]
-//    private $slug;
+    #[Gedmo\Slug(fields:['name'])]
+    #[ORM\Column(type: 'string', length: 255)]
+    private $slug;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'categories')]
     private $parent;
@@ -37,7 +37,10 @@ class Categories
         $this->categories = new ArrayCollection();
         $this->annances = new ArrayCollection();
     }
+ public function __toString(){
+        return $this->name;
 
+ }
     public function getId(): ?int
     {
         return $this->id;

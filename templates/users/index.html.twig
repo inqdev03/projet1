@@ -1,0 +1,36 @@
+{% extends 'Users.html.twig' %}
+
+{% block title %} Profil de {{ app.user.firstname }} {{ app.user.name }}{% endblock %}
+
+{% block body %}
+    <div class="grix xs4 container">
+        {% for message in app.flashes('message') %}
+        <div class="col-sx4">
+            <div class="p-3 my-2 rounded-1 green light-4 txt-green txt-dark-4">{{ message }}</div>
+        </div>
+        {%  endfor %}
+
+
+            <div class="col-sx4">
+            <h1>Profil de {{ app.user.firstname }} {{ app.user.name }}</h1>
+        </div>
+        <div class="col-sx1">Nom :</div>
+        <div class="col-sx3">{{ app.user.name }}</div>
+        <div class="col-sx1">Prenom :</div>
+        <div class="col-sx3">{{ app.user.firstname }}</div>
+        <div class="col-sx1">Email :</div>
+        <div class="col-sx3"> {{ app.user.email }}</div>
+        <div class="col-sx4">
+            <a href="{{ path('users_profil_modifier') }}" class="btn blue">Mofifier le profil</a>
+            <a href="{{ path('users_pass_modifier') }}" class="btn blue">Mofifier le mot de passe</a>
+        </div>
+        <div class="col-sx4">
+            <h1> Annance de {{ app.user.firstname }} {{ app.user.name }} {{ app.user.annances|length }}</h1>
+        </div>
+        {% for annance in app.user.annances  %}
+        <div class="col-sx1">Titre :</div>
+        <div class="col-sx3">{{ annance.title }}</div>
+        {% endfor %}
+
+    </div>
+{% endblock %}

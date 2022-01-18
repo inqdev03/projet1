@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Gerer les annances{% endblock %}
+
+{% block body %}
+<h1>Gerer les annaces</h1>
+{#    <a href="{{ path("admin_categories_ajout") }}" class="btn shadow-1 rounded-1 blue">Ajouter une annance</a>#}
+    <div class="responsive-table">
+        <table class="table striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Titre</th>
+                <th>Date</th>
+                <th>Active</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for annance in annances %}
+                <tr>
+                    <td>{{ annance.id }}</td>
+                    <td>{{ annance.title }}</td>
+                    <td>{{ annance.createdAT|date }}</td>
+                    <td>
+                        <label class="form-switch mt-2">
+                            <input type="checkbox" {{ (annance.active) ? 'checked' : ''}} data-id="{{ annance.id}}" />
+                            <span class="slider"></span>
+                        </label>
+                    </td>
+                    <td class="text-center">
+                        <a href="{{ path('admin_annances_supprimer', {id: annance.id}) }}" class="btn rounded-1 primary press btndelete">Supprimer</a>
+                    </td>
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+        </table>
+
+
+        <div class="modal shadow-1 white falling" id="modal-delete" data-ax="modal">
+            <div class="modal-header">suprimer une annance</div>
+
+            <div class="divider"></div>
+
+            <div class="modal-content">
+
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="modal-footer">
+                <a href="" class="blt red">Valider</a>
+                <button data-target="modal-delete" class="ml-auto btn shadow-1 rounded-1 small primary modal-trigger">Close</button>
+            </div>
+        </div>
+
+    </div>
+    <ul class="pagination">
+        {% for i in 1..nbpage %}
+            <li><span class="loadpage" id="{{ i }}">{{ i }}</span></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    $('a.btndelete').click(function(event) {
+        const res = confirm("Sure ??");
+        if (!res) {
+            event.preventDefault();
+        }
+    });
+    $('span.loadpage').click(function(event) {
+        //event.preventDefault();
+        var id = $(this).attr('id');
+        let route = "{{ path('admin_annances_index_by_page', {page: 'myidparamroute'}) }}";
+        route = route.replace('myidparamroute', id);
+        $.get( route, function( data ) {
+            $('table tbody').html(data);
+        });
+    });
+</script>
+
+{% endblock %}
+

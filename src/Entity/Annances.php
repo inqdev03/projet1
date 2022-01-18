@@ -17,24 +17,27 @@ class Annances
     #[ORM\Column(type: 'string', length: 255)]
     private $title;
 
+    #[Gedmo\Slug(fields:['title'])]
     #[ORM\Column(type: 'string', length: 255)]
     private $slug;
+
 
     #[ORM\Column(type: 'text')]
     private $content;
 
+    #[Gedmo\Timestampable(on:"create")]
     #[ORM\Column(type: 'datetime_immutable')]
     private $created_at;
 
-    #[ORM\Column(type: 'boolean')]
-    private $active;
+//    #[ORM\Column(type: 'boolean')]
+//    private $active;
 
     #[ORM\ManyToOne(targetEntity: Users::class, inversedBy: 'annances')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private $users;
 
     #[ORM\ManyToOne(targetEntity: Categories::class, inversedBy: 'annances')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private $categories;
 
     public function getId(): ?int
@@ -59,12 +62,12 @@ class Annances
         return $this->slug;
     }
 
-    public function setSlug(string $slug): self
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
+//    public function setSlug(string $slug): self
+//    {
+//        $this->slug = $slug;
+//
+//        return $this;
+//    }
 
     public function getContent(): ?string
     {
@@ -83,12 +86,12 @@ class Annances
         return $this->created_at;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $created_at): self
-    {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
+//    public function setCreatedAt(\DateTimeImmutable $created_at): self
+//    {
+//        $this->created_at = $created_at;
+//
+//        return $this;
+//    }
 
     public function getActive(): ?bool
     {
